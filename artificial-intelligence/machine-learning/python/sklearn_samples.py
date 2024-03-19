@@ -9,11 +9,12 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans, DBSCAN
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier, VotingClassifier, GradientBoostingClassifier
-from sklearn.semi_supervised import LabelPropagation
+from sklearn.semi_supervised import LabelPropagation, LabelSpreading
 from sklearn.mixture import GaussianMixture
 from sklearn.linear_model import LogisticRegression, PassiveAggressiveClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
+
 
 
 '''
@@ -283,4 +284,171 @@ gnb_model.fit(X_train, y_train)
 gnb_predictions = gnb_model.predict(X_test)
 gnb_accuracy = accuracy_score(y_test, gnb_predictions)
 print("Gaussian Naive Bayes Accuracy:", gnb_accuracy)
+
+
+# todo: Supervised Learning: Decision Tree Classifier
+
+# Load iris dataset
+X, y = load_iris(return_X_y=True)
+
+# Split data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train Decision Tree Classifier
+dt_classifier = DecisionTreeClassifier()
+dt_classifier.fit(X_train, y_train)
+
+# Evaluate model
+dt_predictions = dt_classifier.predict(X_test)
+dt_accuracy = accuracy_score(y_test, dt_predictions)
+print("Decision Tree Classifier Accuracy:", dt_accuracy)
+
+
+# todo: Unsupervised Learning: K-Means Clustering
+
+# Load iris dataset
+X, _ = load_iris(return_X_y=True)
+
+# Standardize features
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Apply K-Means clustering
+kmeans = KMeans(n_clusters=3)
+kmeans.fit(X_scaled)
+
+# Visualize clusters
+plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=kmeans.labels_, cmap='viridis')
+plt.title("K-Means Clustering")
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
+plt.show()
+
+
+# todo: Reinforcement Learning: None (Scikit-learn does not have built-in support for reinforcement learning algorithms)
+
+# Reinforcement learning algorithms are not available in scikit-learn.
+# However, you can use libraries like OpenAI Gym or implement algorithms manually.
+
+
+# todo: Semi-supervised Learning: Label Spreading
+
+# Load iris dataset
+X, y = load_iris(return_X_y=True)
+
+# Introduce semi-supervised scenario by keeping only 10% of labels
+y_labeled, y_unlabeled = train_test_split(y, test_size=0.9, random_state=42)
+
+# Use Label Spreading to propagate labels from labeled to unlabeled instances
+label_spread = LabelSpreading()
+label_spread.fit(X, y_labeled)
+
+# Predict labels for unlabeled instances
+y_pred_unlabeled = label_spread.transduction_
+
+# Evaluate model using labeled and unlabeled data
+accuracy_labeled = accuracy_score(y_labeled, label_spread.transduction_)
+accuracy_unlabeled = accuracy_score(y_unlabeled, y_pred_unlabeled)
+print("Label Spreading Accuracy (Labeled Data):", accuracy_labeled)
+print("Label Spreading Accuracy (Unlabeled Data):", accuracy_unlabeled)
+
+
+# todo: Transfer Learning: None (Scikit-learn does not have built-in support for transfer learning algorithms)
+
+# Transfer learning algorithms are not available in scikit-learn.
+# However, you can use deep learning frameworks like TensorFlow or PyTorch to implement transfer learning.
+
+
+# todo: Supervised Learning: Random Forest Classifier
+
+# Load iris dataset
+X, y = load_iris(return_X_y=True)
+
+# Split data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train Random Forest Classifier
+rf_classifier = RandomForestClassifier(n_estimators=100)
+rf_classifier.fit(X_train, y_train)
+
+# Evaluate model
+rf_predictions = rf_classifier.predict(X_test)
+rf_accuracy = accuracy_score(y_test, rf_predictions)
+print("Random Forest Classifier Accuracy:", rf_accuracy)
+
+
+# todo: Unsupervised Learning: Gaussian Mixture Model (GMM)
+
+# Load iris dataset
+X, _ = load_iris(return_X_y=True)
+
+# Standardize features
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Apply Gaussian Mixture Model clustering
+gmm = GaussianMixture(n_components=3)
+gmm.fit(X_scaled)
+
+# Visualize clusters
+plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=gmm.predict(X_scaled), cmap='viridis')
+plt.title("Gaussian Mixture Model Clustering")
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
+plt.show()
+
+
+# todo: Bayesian Learning: Gaussian Naive Bayes
+
+# Load iris dataset
+X, y = load_iris(return_X_y=True)
+
+# Split data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train Gaussian Naive Bayes model
+gnb_model = GaussianNB()
+gnb_model.fit(X_train, y_train)
+
+# Evaluate model
+gnb_predictions = gnb_model.predict(X_test)
+gnb_accuracy = accuracy_score(y_test, gnb_predictions)
+print("Gaussian Naive Bayes Accuracy:", gnb_accuracy)
+
+
+# todo: Ensemble Learning: Gradient Boosting Classifier
+
+# Load iris dataset
+X, y = load_iris(return_X_y=True)
+
+# Split data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train Gradient Boosting Classifier
+gb_classifier = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1)
+gb_classifier.fit(X_train, y_train)
+
+# Evaluate model
+gb_predictions = gb_classifier.predict(X_test)
+gb_accuracy = accuracy_score(y_test, gb_predictions)
+print("Gradient Boosting Classifier Accuracy:", gb_accuracy)
+
+
+# todo: Online Learning: Passive Aggressive Classifier
+
+# Load iris dataset
+X, y = load_iris(return_X_y=True)
+
+# Split data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train Passive Aggressive Classifier
+pa_classifier = PassiveAggressiveClassifier(max_iter=100)
+pa_classifier.fit(X_train, y_train)
+
+# Evaluate model
+pa_predictions = pa_classifier.predict(X_test)
+pa_accuracy = accuracy_score(y_test, pa_predictions)
+print("Passive Aggressive Classifier Accuracy:", pa_accuracy)
+
 
