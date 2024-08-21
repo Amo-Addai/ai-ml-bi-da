@@ -1,0 +1,3 @@
+
+- default hyper-parameters
+    - epochs (50), batch-size (16), learnging-rate (0.001)

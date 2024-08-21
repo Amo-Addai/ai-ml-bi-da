@@ -289,4 +289,3 @@ After training, we evaluate the model on the test data in batches and calculate 
 This implementation uses TensorFlow's lower-level API for building and training the model. It provides more flexibility and control over the training process compared to the high-level Keras API.
 '''
 
-
