@@ -159,11 +159,45 @@ get_quality(net)
 class MLP(nn.Module):
 
     def __init__(self, n_input_neurons, n_output_neurons):
-        pass
+        super().__init__()
+        self.linear_1 = nn.Linear(n_input_neurons, 256)
+        self.linear_2 = nn.Linear(256, 128)
+        self.linear_3 = nn.Linear(128, n_output_neurons)
     
     def forward(self, x):
-        pass
+        b_size = x.shape[0]
+        x = x.view(b_size, -1)
+        x = torch.relu(self.linear_1(x))
+        x = torch.relu(self.linear_2(x))
+        x = self.linear_3(x)
+
+        return x
 
 
 net = MLP(3 * 32 * 32, 10).cuda()
+
+
+class MLP2(nn.Module):
+
+    def __init__(self, n_input_neurons, n_output_neurons):
+        super().__init__()
+
+        self.main = nn.Sequential( \
+            nn.Linear(n_input_neurons, 256), \
+            nn.LeakerReLU(inplace=True, negative_slope=0.2), \
+            nn.Linear(256, 128), \
+            nn.LeakerReLU(inplace=True, negative_slope=0.2), \
+            nn.Linear(128, n_ouput_neurons) \
+        )
+    
+    def forward(self, x):
+        b_size = x.shape[0]
+        x = x.view(b_size, -1)
+        return self.main(x)
+
+
+net = MLP( \
+    n_input_neurons = 3 * height * width, \
+    n_ouput_neurons = 10, \
+).cuda()
 
