@@ -84,7 +84,7 @@ class DQNAgent:
             state = np.reshape(state, [1, self.state_space])
             done = False
             score = 0
-            self.epsilon = self.epsilon * self.epsilon_decay if self.epsilon * self.epsilon_decay > self.min_epsilon else self.? # ! todo: 
+            self.epsilon = self.epsilon * self.epsilon_decay if self.epsilon * self.epsilon_decay > self.min_epsilon_min else self.epsilon_min
 
             while not done:
                 self.env.render()
@@ -112,3 +112,4 @@ class DQNAgent:
 
 if __name__ == '__main__':
     agent = DQNAgent()
+    agent.train()
